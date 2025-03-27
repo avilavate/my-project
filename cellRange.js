@@ -10,7 +10,6 @@ var cellsInRange = function(s) {
 
     rows=[cellPositions[0][0].charCodeAt(), cellPositions[1][0].charCodeAt()];
     let res=[]
-
     let counter=parseInt(cellPositions[0][1]);
     let limit=parseInt(cellPositions[1][1]);
 
