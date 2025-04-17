@@ -12,31 +12,43 @@ var isValidSudoku = function (board) {
       return false
     }
   }
+  let cols = []
   for (let row = 0; row < 9; row++) {
-    let cols = []
+    let colv = []
     for (let col = 0; col < 9; col++) {
-      cols.push(board[col][row])
+      colv.push(board[col][row])
     }
-    if (cols[0].length !== [...new Set(cols[0])].length) {
-         return false
+    cols.push(colv)
+    // if (cols[0].length !== [...new Set(cols[0])].length) {
+    //    //  return false
+    // }
+  }
+  for (let i = 0; i < 9; i++) {
+    if (
+      [...cols[i].filter(ele => Number.isFinite(Number(ele)))].length !==
+      [...new Set([...cols[i].filter(ele => Number.isFinite(Number(ele)))])]
+        .length
+    ) {
+      return false
     }
   }
   let subArray = []
-  for (let i = 0; i < 9; i=i+3) {
-    subArray.push(board.slice(i, i+3).map(ele => ele.slice(0, 3)))
-    subArray.push(board.slice(i, i+3).map(ele => ele.slice(3, 6)))
-    subArray.push(board.slice(i, i+3).map(ele => ele.slice(6, 10)))
-    
+  for (let i = 0; i < 9; i = i + 3) {
+    subArray.push(board.slice(i, i + 3).map(ele => ele.slice(0, 3)))
+    subArray.push(board.slice(i, i + 3).map(ele => ele.slice(3, 6)))
+    subArray.push(board.slice(i, i + 3).map(ele => ele.slice(6, 10)))
   }
-  let res=true;
-for (let i = 0; i < 9; i++) {
- if (  [...new Set(subArray[i].flat()).filter(ele => Number.isFinite(Number(ele)))].length!=
-
-     [...subArray[i].filter(ele => Number.isFinite(Number(ele)))].length){
-        return false;
-     }
-}
-return false
+  let res = true
+  for (let i = 0; i < 9; i++) {
+    let setArr = [...new Set(subArray[i].flat())]
+    if (
+      [...setArr.filter(ele => Number.isFinite(Number(ele)))].length !=
+      [...subArray[i].flat().filter(ele => Number.isFinite(Number(ele)))].length
+    ) {
+      return false
+    }
+  }
+  return true
 }
 
 let board = [
@@ -51,4 +63,4 @@ let board = [
   ['.', '.', '.', '.', '8', '.', '.', '7', '9']
 ]
 
-isValidSudoku(board)
+console.log(isValidSudoku(board))
