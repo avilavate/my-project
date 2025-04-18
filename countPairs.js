@@ -19,3 +19,4 @@ var countPairs = function (nums, k) {
 let nums = [3, 1, 2, 2, 2, 1, 3],
   k = 2
 console.log(countPairs(nums, k))
+
