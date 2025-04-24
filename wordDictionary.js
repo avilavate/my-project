@@ -35,5 +35,5 @@ console.log(obj.search("A.i."))
 a=[1,2,3,4,5]
 console.log(a.some((v,i)=>{
 console.log("*")
-return v
+return v > 3
 }))
