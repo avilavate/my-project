@@ -1,7 +1,7 @@
 const { Worker } = require('worker_threads');
 
 const bigJson = {};
-for (let i = 1; i <= 650; i++) {
+for (let i = 1; i <= 1650; i++) {
   bigJson[`node${i}`] = { value: i };
 }
 
