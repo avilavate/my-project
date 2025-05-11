@@ -1,0 +1,27 @@
+/**
+ * @param {number[]} nums1
+ * @param {number[]} nums2
+ * @return {number}
+ */
+var minSum = function (nums1, nums2) {
+  let sum1 = nums1.reduce((acc, curr) => {
+    if (curr === 0) acc += 1
+    return acc
+    acc + curr
+  }, 0)
+
+  let sum2 = nums2.reduce((acc, curr) => {
+    if (curr === 0) acc += 1
+    return acc
+    acc + curr
+  }, 0)
+  let minSum = 0
+
+  let max=Math.max(sum1, sum2)
+  let min=Math.min(sum1, sum2)
+
+let nums1Zeros=nums1.filter(curr=>curr===0).length
+let nums2Zeros=nums2.filter(curr=>curr===0).length
+
+ 
+}

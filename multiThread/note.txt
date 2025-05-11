@@ -1,0 +1,8 @@
+trategy Overview
+Break JSON into top-level nodes
+
+Sanitize each node (remove/mark circular refs)
+
+Use a worker per node (or a thread pool if needed)
+
+Build a circular-safe structure suitable for tree rendering

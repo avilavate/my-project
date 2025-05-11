@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Circular JSON Viewer</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+    }
+    ul {
+      list-style-type: none;
+      padding-left: 20px;
+    }
+    li {
+      margin: 4px 0;
+    }
+    .toggle {
+      cursor: pointer;
+      user-select: none;
+    }
+    .nested {
+      display: none;
+    }
+    .active > .nested {
+      display: block;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Circular JSON Viewer</h1>
+  <div id="jsonTree"></div>
+
+  <!-- Include Flatted library -->
+  <script src="flatted.min.js"></script>
+  <script>
+    // Sample object with circular references
+    const obj = {
+      name: 'Root',
+      children: [
+        { name: 'Child 1' },
+        { name: 'Child 2' }
+      ]
+    };
+    obj.children[0].parent = obj;
+    obj.children[1].parent = obj;
+
+    // Serialize the object using Flatted
+    const jsonString = Flatted.stringify(obj);
+
+    // Deserialize the JSON string back to object
+    const parsedObj = Flatted.parse(jsonString);
+
+    // Function to create the tree view
+    function createTree(container, data) {
+      const ul = document.createElement('ul');
+
+      for (const key in data) {
+        const li = document.createElement('li');
+        const value = data[key];
+
+        if (typeof value === 'object' && value !== null) {
+          li.innerHTML = `<span class="toggle">${key}</span>`;
+          const nestedUl = document.createElement('ul');
+          nestedUl.classList.add('nested');
+          createTree(nestedUl, value);
+          li.appendChild(nestedUl);
+        } else {
+          li.textContent = `${key}: ${value}`;
+        }
+
+        ul.appendChild(li);
+      }
+
+      container.appendChild(ul);
+    }
+
+    // Initialize the tree view
+    const container = document.getElementById('jsonTree');
+    createTree(container, parsedObj);
+
+    // Add toggle functionality
+    container.addEventListener('click', function (e) {
+      if (e.target.classList.contains('toggle')) {
+        e.target.parentElement.classList.toggle('active');
+      }
+    });
+  </script>
+</body>
+</html>
